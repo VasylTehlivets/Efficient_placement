@@ -29,6 +29,16 @@
     <div id="fullness"></div>
 
     <script type="module" src="index.js"></script>
+
+    <script>
+      // Отримуємо дані з output.json та викликаємо функцію візуалізації
+      fetch("output.json")
+        .then((response) => response.json())
+        .then((data) => updateUI(data))
+        .catch((error) =>
+          console.error("Помилка читання output.json:", error.message)
+        );
+    </script>
   </body>
 </html> -->
 
@@ -36,8 +46,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>UI для відображення результату алгоритму</title>
+    <title>Rectangle Packing Visualization</title>
     <style>
       #container {
         position: relative;
@@ -60,9 +71,7 @@
   </head>
   <body>
     <div id="container"></div>
-    <div id="fullness"></div>
-
-    <script type="module" src="index.js"></script>
+    <p id="fullness"></p>
 
     <script>
       // Отримуємо дані з output.json та викликаємо функцію візуалізації
@@ -72,6 +81,47 @@
         .catch((error) =>
           console.error("Помилка читання output.json:", error.message)
         );
+
+      function updateUI(result) {
+        const container = document.getElementById("container");
+        const fullness = document.getElementById("fullness");
+
+        container.innerHTML = "";
+
+        result.forEach((block, index) => {
+          const blockElement = document.createElement("div");
+          blockElement.className = "block";
+          blockElement.style.width = block.width + "px";
+          blockElement.style.height = block.height + "px";
+          blockElement.style.top = block.y + "px";
+          blockElement.style.left = block.x + "px";
+          blockElement.style.backgroundColor = `rgb(${getRandomColor()}, ${getRandomColor()}, ${getRandomColor()})`;
+          blockElement.innerText = `${index + 1}`;
+
+          container.appendChild(blockElement);
+        });
+
+        fullness.innerText = `Коефіцієнт корисного використання простору: ${calculateFullness(
+          result,
+          container.clientWidth * container.clientHeight
+        ).toFixed(2)}`;
+      }
+
+      function getRandomColor() {
+        return Math.floor(Math.random() * 256);
+      }
+
+      function area(rectangle) {
+        return rectangle.width * rectangle.height;
+      }
+
+      function calculateFullness(rectangles, containerArea) {
+        const usedArea = rectangles.reduce(
+          (total, rectangle) => total + area(rectangle),
+          0
+        );
+        return usedArea / containerArea;
+      }
     </script>
   </body>
 </html>
