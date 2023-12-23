@@ -1,0 +1,77 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI для відображення результату алгоритму</title>
+    <style>
+      #container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        border: 2px solid #333;
+        box-sizing: border-box;
+      }
+
+      .block {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="fullness"></div>
+
+    <script type="module" src="index.js"></script>
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UI для відображення результату алгоритму</title>
+    <style>
+      #container {
+        position: relative;
+        width: 100vw;
+        height: 100vh;
+        border: 2px solid #333;
+        box-sizing: border-box;
+      }
+
+      .block {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container"></div>
+    <div id="fullness"></div>
+
+    <script type="module" src="index.js"></script>
+
+    <script>
+      // Отримуємо дані з output.json та викликаємо функцію візуалізації
+      fetch("output.json")
+        .then((response) => response.json())
+        .then((data) => updateUI(data))
+        .catch((error) =>
+          console.error("Помилка читання output.json:", error.message)
+        );
+    </script>
+  </body>
+</html>
